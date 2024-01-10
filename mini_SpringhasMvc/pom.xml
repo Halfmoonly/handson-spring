@@ -27,6 +27,11 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.44</version> <!-- 根据实际情况使用合适的版本号 -->
+    </dependency>
   </dependencies>
   <build>
     <finalName>mini_SpringhasMvc</finalName>
