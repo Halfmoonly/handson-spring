@@ -1,14 +1,12 @@
 package xmltest;
 
 
-import org.lyflexi.framework.beans.BeansException;
 import org.lyflexi.framework.context.ClassPathXmlApplicationContext;
 import org.lyflexi.frameworktest.service.AService;
 import org.lyflexi.frameworktest.service.BaseService;
 import org.lyflexi.frameworktest.service.BaseBaseService;
-import org.lyflexi.frameworktest.service.SimpleService;
 
-public class Test1 {
+public class IOCTest {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
 //        SimpleService simpleService;

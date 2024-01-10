@@ -88,7 +88,7 @@
 
 	
 
-	<bean id="contextListener" class="org.lyflexi.frameworktest.MyListener" />
+<!--	<bean id="contextListener" class="org.lyflexi.frameworktest.MyListener" />-->
 
 	<bean id="beanFactoryPostProcessor" class="org.lyflexi.frameworktest.MyBeanFactoryPostProcessor" />
 
@@ -108,7 +108,7 @@
 	<bean id="objectMapper" class="org.lyflexi.framework.util.DefaultObjectMapper" >
 	 <property type="String" name="dateFormat" value="yyyy/MM/dd"/>
 	 <property type="String" name="decimalFormat" value="###.##"/>
-	</bean>> 
+	</bean>
 	
 	<bean id="viewResolver" class="org.lyflexi.framework.web.servlet.view.InternalResourceViewResolver" >
 	 <property type="String" name="viewClassName" value="org.lyflexi.framework.web.servlet.view.JstlView" />
