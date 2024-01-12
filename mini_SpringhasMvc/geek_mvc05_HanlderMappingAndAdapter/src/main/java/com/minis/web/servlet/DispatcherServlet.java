@@ -63,7 +63,8 @@ public class DispatcherServlet extends HttpServlet {
     }
     
     protected void Refresh() {
-    	initController();
+		//DispatcherServlet中的controller相关bean的初始化已经交给AnnotationConfigWebApplicationContext管理了，它的init方法不用在调用initController了
+//    	initController();
     	
 		initHandlerMappings(this.webApplicationContext);
 		initHandlerAdapters(this.webApplicationContext);
@@ -82,23 +83,23 @@ public class DispatcherServlet extends HttpServlet {
     	
     }
     
-    protected void initController() {
-    	this.controllerNames = Arrays.asList(this.webApplicationContext.getBeanDefinitionNames());
-    	for (String controllerName : this.controllerNames) {
-			try {
-				this.controllerClasses.put(controllerName,Class.forName(controllerName));
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				this.controllerObjs.put(controllerName,this.webApplicationContext.getBean(controllerName));
-		    	System.out.println("controller : "+controllerName);
-			} catch (BeansException e) {
-				e.printStackTrace();
-			}
-    	}
-
-    }
+//    protected void initController() {
+//    	this.controllerNames = Arrays.asList(this.webApplicationContext.getBeanDefinitionNames());
+//    	for (String controllerName : this.controllerNames) {
+//			try {
+//				this.controllerClasses.put(controllerName,Class.forName(controllerName));
+//			} catch (ClassNotFoundException e1) {
+//				e1.printStackTrace();
+//			}
+//			try {
+//				this.controllerObjs.put(controllerName,this.webApplicationContext.getBean(controllerName));
+//		    	System.out.println("controller : "+controllerName);
+//			} catch (BeansException e) {
+//				e.printStackTrace();
+//			}
+//    	}
+//
+//    }
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) {

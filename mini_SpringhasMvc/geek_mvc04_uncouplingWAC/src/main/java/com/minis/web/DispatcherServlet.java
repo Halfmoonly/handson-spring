@@ -26,8 +26,9 @@ import java.util.Map;
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private WebApplicationContext webApplicationContext;
-	
-    private String sContextConfigLocation;
+	private WebApplicationContext parentApplicationContext;
+
+	private String sContextConfigLocation;
     private List<String> packageNames = new ArrayList<>();
     private Map<String,Object> controllerObjs = new HashMap<>();
     private List<String> controllerNames = new ArrayList<>();
@@ -44,10 +45,12 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	super.init(config);
-    	
-    	this.webApplicationContext = (WebApplicationContext) this.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-    	
-        sContextConfigLocation = config.getInitParameter("contextConfigLocation");
+
+		//父容器XmlWebApplicationContext
+		this.parentApplicationContext =
+				(WebApplicationContext) this.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+
+		sContextConfigLocation = config.getInitParameter("contextConfigLocation");
         
         URL xmlPath = null;
 		try {
@@ -58,18 +61,23 @@ public class DispatcherServlet extends HttpServlet {
         
         this.packageNames = XmlScanComponentHelper.getNodeValue(xmlPath);
 
-        Refresh();
+		//子容器AnnotationConfigWebApplicationContext
+		this.webApplicationContext = new AnnotationConfigWebApplicationContext(sContextConfigLocation,this.parentApplicationContext);
+
+		Refresh();
         
     }
     
     protected void Refresh() {
-    	initController();
+		//DispatcherServlet中的controller相关bean的初始化已经交给AnnotationConfigWebApplicationContext管理了，它的init方法不用在调用initController了
+    	//所以，这块后续会继续改造
+		initController();
     	initMapping();
     }
     
     protected void initController() {
     	this.controllerNames = scanPackages(this.packageNames);
-    	
+
     	for (String controllerName : this.controllerNames) {
     		Object obj = null;
     		Class<?> clz = null;
@@ -82,9 +90,9 @@ public class DispatcherServlet extends HttpServlet {
 			}
 			try {
 				obj = clz.newInstance();
-				
+				//子容器对@Autowired的处理
 				populateBean(obj,controllerName);
-				
+
 				this.controllerObjs.put(controllerName, obj);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
@@ -96,10 +104,10 @@ public class DispatcherServlet extends HttpServlet {
 			}
     	}
     }
-    
+
 	protected Object populateBean(Object bean, String beanName) throws BeansException {
 		Object result = bean;
-		
+
 		Class<?> clazz = bean.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 		if(fields!=null){
@@ -120,11 +128,11 @@ public class DispatcherServlet extends HttpServlet {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
-    
+
     private List<String> scanPackages(List<String> packages) {
     	List<String> tempControllerNames = new ArrayList<>();
     	for (String packageName : packages) {
@@ -132,7 +140,7 @@ public class DispatcherServlet extends HttpServlet {
     	}
     	return tempControllerNames;
     }
-    
+
     private List<String> scanPackage(String packageName) {
     	List<String> tempControllerNames = new ArrayList<>();
         URL url  =this.getClass().getClassLoader().getResource("/"+packageName.replaceAll("\\.", "/"));
