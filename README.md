@@ -1,7 +1,11 @@
 # handson_miniFramework
 ## mini_SpringhasMvc
 环境：
-- tomcat10以下
+- javax.servlet-api
+- tomcat10-
+
+> Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_SpringhasMvc没有对Tomcat 10做适配。
+> 在Tomcat 10+中，Servlet API已经迁移到了Jakarta EE命名空间（jakarta.servlet）。这是因为Java EE已经转移到了Eclipse基金会，并更名为Jakarta EE。因此，Servlet API也需要进行相应的更改
 
 采用快速迭代的开发模式，从一个最简单的程序开始，一步步堆积演化，每写一小段代码，都是一个可运行的程度。在不断迭代中完善框架功能，最终实现 Spring 框架的核心：IOC、MVC、JDBC Template 和 AOP。在一步步的迭代过程中，将 Spring 的底层原理融入代码中，一层层对照 Spring 框架的现有结构，让原理理解起来不再困难。
 1. 第一部分：IoC 容器
