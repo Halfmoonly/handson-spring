@@ -6,9 +6,9 @@
         <artifactId>mini_SpringhasMvc</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>geek_ioc06_fullContextSystem</artifactId>
+    <artifactId>finalVersionSpring</artifactId>
     <packaging>war</packaging>
-    <name>geek_ioc06_fullContextSystem Maven Webapp</name>
+    <name>finalVersionSpring Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -19,6 +19,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>geek_ioc05</finalName>
+        <finalName>completableSpring</finalName>
     </build>
 </project>

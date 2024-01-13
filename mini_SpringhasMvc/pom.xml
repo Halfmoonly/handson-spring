@@ -6,11 +6,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>geek_ioc01_nativeClassPathXmlApplicationContext</module>
-        <module>completableSpring</module>
+        <module>finalVersionSpring</module>
         <module>geek_ioc02_expandBeanDefinition</module>
         <module>geek_ioc03_realizeDIAndCircleDI</module>
         <module>geek_ioc04_AutowireCapableBeanFactoryAndProcessor</module>
-        <module>geek_ioc06_fullContextSystem</module>
+        <module>geek_ioc06_fullContextSystemAndEvent</module>
         <module>geek_mvc02_AnnoatationRequestMapping</module>
         <module>geek_mvc01_xmlMapping</module>
         <module>geek_mvc03_Integratedioc</module>
