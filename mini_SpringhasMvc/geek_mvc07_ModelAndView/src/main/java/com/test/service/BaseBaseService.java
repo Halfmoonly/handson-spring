@@ -17,6 +17,6 @@ public class BaseBaseService {
 	}
 	
 	public void init() {
-		System.out.println("..........call init-mothod..........");
+		System.out.println("..........call bbs init-mothod..........");
 	}
 }

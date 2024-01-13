@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/*目前的AbstractBeanFactory只管理单实例bean extends DefaultSingletonBeanRegistry
+*
+* 同时也是ConfigurableBeanFactory,BeanDefinitionRegistry
+* */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory,BeanDefinitionRegistry{
     protected Map<String,BeanDefinition> beanDefinitionMap=new ConcurrentHashMap<>(256);
     protected List<String> beanDefinitionNames=new ArrayList<>();
@@ -36,10 +40,12 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     }
 
     public Object getBean(String beanName) throws BeansException{
+		//先从成品缓存中拿
         Object singleton = this.getSingleton(beanName);
-        
+		//成品缓存没有，再从早期缓存earlySingletonObjects中拿
         if (singleton == null) {
         	singleton = this.earlySingletonObjects.get(beanName);
+			//早期缓存earlySingletonObjects中也没有，就只能创建对象了
         	if (singleton == null) {
         		System.out.println("get bean null -------------- " + beanName);
         		BeanDefinition bd = beanDefinitionMap.get(beanName);

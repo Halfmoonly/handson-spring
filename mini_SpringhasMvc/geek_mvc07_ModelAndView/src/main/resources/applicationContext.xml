@@ -33,6 +33,7 @@
 	<bean id="messageConverter" class="com.minis.http.converter.DefaultHttpMessageConverter"> 
 	 <property type="com.minis.util.ObjectMapper" name="objectMapper" ref="objectMapper"/>
 	</bean>
+	<!--DefaultObjectMapper-->
 	<bean id="objectMapper" class="com.minis.util.DefaultObjectMapper" >
 	 <property type="String" name="dateFormat" value="yyyy/MM/dd"/>
 	 <property type="String" name="decimalFormat" value="###.##"/>
