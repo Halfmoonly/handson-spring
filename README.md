@@ -24,6 +24,9 @@ Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_Sprin
 4. 第四部分：AOP
    AOP 是 Spring 框架中实践面向切面编程的探索。面向对象和面向切面，两者一纵一横，编织成完整的程序结构。在这一部分，我们将了解到 Spring AOP 所采用的一个实现方式：JDK 动态代理。我们会学习动态代理的原理，以及如何用这个技术动态插入业务逻辑，实现切面的特性。最后我们将再一次看到 AOP 与 IoC 的结合，使用 BeanPostProcessor 自动生成动态代理。这时你就会体会到，我前面说的“IoC 是 Spring 框架核心中的核心”。
 
+在这一步一步的演化过程中，我们对 Spring 的模仿逐渐成型。我坚持一个原则，就是每一步都是可以运行的，都会有看得见的收获，你不需要辛辛苦苦等到最后才能看到成果。当然，自己动手模仿 Spring，是一个难度较大的工作，风景虽好，但过程也是充满艰辛的，最后的果实属于不断探索的人。任何一个技术领域都是这样，不断练习，反复琢磨，最后才能站在山顶。
+《诗经》有云：“有匪君子，如切如磋，如琢如磨”。虽然中途会遇到困难，但我希望你可以坚持学习，站到山顶，跟我一起领略 Spring 的风采！
+
 工程结构如下图所示：
 - geekA_ioc01_nativeClassPathXmlApplicationContext：实现了一个简易的IOC容器ClassPathXmlApplicationContext，耦合了Resource，耦合了Reader，耦合了BeanFactory的功能
 - geekA_ioc02_expandBeanDefinition：扩展了BeanDefinition的定义信息，支持Setter注入，支持构造注入，维护单实例Bean，并且解耦了ClassPathXmlApplicationContext
@@ -42,7 +45,6 @@ Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_Sprin
 - geekC_jdbc02_expandTemplateAndSingleResponsibilitPrinciple：扩展了JdbcTemplate，根据单一职责，抽取出关于SQL输入参数处理的组件ArgumentPreparedStatementSetter，抽取出处理SQL返回结果与对象的绑定的组件RowMapper和ResultSetExtractor
 - geekC_jdbc03_PooledDataSource：实现了数据库（源）连接池PooledDataSource，并与IOC整合，替换SingleConnectionDataSource
 - geekC_jdbc04_realizeBatisSqlSession：仿写了mybatis框架，实现了配置化SQL语句
-在这一步一步的演化过程中，我们对 Spring 的模仿逐渐成型。我坚持一个原则，就是每一步都是可以运行的，都会有看得见的收获，你不需要辛辛苦苦等到最后才能看到成果。当然，自己动手模仿 Spring，是一个难度较大的工作，风景虽好，但过程也是充满艰辛的，最后的果实属于不断探索的人。任何一个技术领域都是这样，不断练习，反复琢磨，最后才能站在山顶。
-《诗经》有云：“有匪君子，如切如磋，如琢如磨”。虽然中途会遇到困难，但我希望你可以坚持学习，站到山顶，跟我一起领略 Spring 的风采！
+
 
 ## mini_tomcat敬请期待....
