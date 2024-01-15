@@ -25,23 +25,23 @@ Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_Sprin
    AOP 是 Spring 框架中实践面向切面编程的探索。面向对象和面向切面，两者一纵一横，编织成完整的程序结构。在这一部分，我们将了解到 Spring AOP 所采用的一个实现方式：JDK 动态代理。我们会学习动态代理的原理，以及如何用这个技术动态插入业务逻辑，实现切面的特性。最后我们将再一次看到 AOP 与 IoC 的结合，使用 BeanPostProcessor 自动生成动态代理。这时你就会体会到，我前面说的“IoC 是 Spring 框架核心中的核心”。
 
 工程结构如下图所示：
-    - geekA_ioc01_nativeClassPathXmlApplicationContext：实现了一个简易的IOC容器ClassPathXmlApplicationContext，耦合了Resource，耦合了Reader，耦合了BeanFactory的功能
-    - geekA_ioc02_expandBeanDefinition：扩展了BeanDefinition的定义信息，支持Setter注入，支持构造注入，维护单实例Bean，并且解耦了ClassPathXmlApplicationContext
-    - geekA_ioc03_realizeDIAndCircleDI：实现了依赖注入，引入二级缓存，解决了循环依赖
-    - geekA_ioc04_AutowireCapableBeanFactoryAndProcessor：定义BeanPostProcessor接口，实现了AutowireCapableBeanFactoryAndProcessor支持@Autowired注入
-    - geekA_ioc05_iocengineDefaultListableBeanFactory：构建完整的工厂体系DefaultListableBeanFactory
-    - geekA_ioc06_fullContextSystemAndEvent：构建完整的上下文体系并添加容器事件
-    - geekB_mvc01_xmlMapping：基于原生Servlet和xml路由配置，实现一种最简单的请求响应，通过response.getWriter().append(objResult.toString());来返回请求结果
-    - geekB_mvc02_AnnoatationRequestMapping：实现基于@RequestMapping注解的mvc
-    - geekB_mvc03_Integratedioc：将springmvc与spring容器进行整合
-    - geekB_mvc04_uncouplingWAC：对WebApplicationContext进行解耦，实现springmvc父子容器XmlWebApplicationContext和AnnotationConfigWebApplicationContext
-    - geekB_mvc05_HandlerMappingAndAdapter：实现HandlerMapping和HandlerAdapter，把请求解析和请求执行两步操作解耦
-    - geekB_mvc06_requestDataBinder：实现请求路径参数与请求方法参数对象进行绑定
-    - geekB_mvc07_ModelAndView：实现springmvc的响应值Response处理，新增两种处理方式：1.@ResponseBody（返回json串，用于前后端分离）2.拼串寻找jsp页面（已淘汰）
-    - geekC_jdbc01_IntegratediocJdbcTemplateAndDataSource：实现一个JdbcTemplate，并且封装数据源DataSource，最终将JdbcTemplate和DataSource与IOC容器做了整合
-    - geekC_jdbc02_expandTemplateAndSingleResponsibilitPrinciple：扩展了JdbcTemplate，根据单一职责，抽取出关于SQL输入参数处理的组件ArgumentPreparedStatementSetter，抽取出处理SQL返回结果与对象的绑定的组件RowMapper和ResultSetExtractor
-    - geekC_jdbc03_PooledDataSource：实现了数据库（源）连接池PooledDataSource，并与IOC整合，替换SingleConnectionDataSource
-    - geekC_jdbc04_realizeBatisSqlSession：仿写了mybatis框架，实现了配置化SQL语句
+- geekA_ioc01_nativeClassPathXmlApplicationContext：实现了一个简易的IOC容器ClassPathXmlApplicationContext，耦合了Resource，耦合了Reader，耦合了BeanFactory的功能
+- geekA_ioc02_expandBeanDefinition：扩展了BeanDefinition的定义信息，支持Setter注入，支持构造注入，维护单实例Bean，并且解耦了ClassPathXmlApplicationContext
+- geekA_ioc03_realizeDIAndCircleDI：实现了依赖注入，引入二级缓存，解决了循环依赖
+- geekA_ioc04_AutowireCapableBeanFactoryAndProcessor：定义BeanPostProcessor接口，实现了AutowireCapableBeanFactoryAndProcessor支持@Autowired注入
+- geekA_ioc05_iocengineDefaultListableBeanFactory：构建完整的工厂体系DefaultListableBeanFactory
+- geekA_ioc06_fullContextSystemAndEvent：构建完整的上下文体系并添加容器事件
+- geekB_mvc01_xmlMapping：基于原生Servlet和xml路由配置，实现一种最简单的请求响应，通过response.getWriter().append(objResult.toString());来返回请求结果
+- geekB_mvc02_AnnoatationRequestMapping：实现基于@RequestMapping注解的mvc
+- geekB_mvc03_Integratedioc：将springmvc与spring容器进行整合
+- geekB_mvc04_uncouplingWAC：对WebApplicationContext进行解耦，实现springmvc父子容器XmlWebApplicationContext和AnnotationConfigWebApplicationContext
+- geekB_mvc05_HandlerMappingAndAdapter：实现HandlerMapping和HandlerAdapter，把请求解析和请求执行两步操作解耦
+- geekB_mvc06_requestDataBinder：实现请求路径参数与请求方法参数对象进行绑定
+- geekB_mvc07_ModelAndView：实现springmvc的响应值Response处理，新增两种处理方式：1.@ResponseBody（返回json串，用于前后端分离）2.拼串寻找jsp页面（已淘汰）
+- geekC_jdbc01_IntegratediocJdbcTemplateAndDataSource：实现一个JdbcTemplate，并且封装数据源DataSource，最终将JdbcTemplate和DataSource与IOC容器做了整合
+- geekC_jdbc02_expandTemplateAndSingleResponsibilitPrinciple：扩展了JdbcTemplate，根据单一职责，抽取出关于SQL输入参数处理的组件ArgumentPreparedStatementSetter，抽取出处理SQL返回结果与对象的绑定的组件RowMapper和ResultSetExtractor
+- geekC_jdbc03_PooledDataSource：实现了数据库（源）连接池PooledDataSource，并与IOC整合，替换SingleConnectionDataSource
+- geekC_jdbc04_realizeBatisSqlSession：仿写了mybatis框架，实现了配置化SQL语句
 在这一步一步的演化过程中，我们对 Spring 的模仿逐渐成型。我坚持一个原则，就是每一步都是可以运行的，都会有看得见的收获，你不需要辛辛苦苦等到最后才能看到成果。当然，自己动手模仿 Spring，是一个难度较大的工作，风景虽好，但过程也是充满艰辛的，最后的果实属于不断探索的人。任何一个技术领域都是这样，不断练习，反复琢磨，最后才能站在山顶。
 《诗经》有云：“有匪君子，如切如磋，如琢如磨”。虽然中途会遇到困难，但我希望你可以坚持学习，站到山顶，跟我一起领略 Spring 的风采！
 
