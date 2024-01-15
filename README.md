@@ -30,7 +30,7 @@ Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_Sprin
 - geekA_ioc03_realizeDIAndCircleDI：实现了依赖注入，引入二级缓存，解决了循环依赖
 - geekA_ioc04_AutowireCapableBeanFactoryAndProcessor：定义BeanPostProcessor接口，实现了AutowireCapableBeanFactoryAndProcessor支持@Autowired注入
 - geekA_ioc05_iocengineDefaultListableBeanFactory：构建完整的工厂体系DefaultListableBeanFactory
-- geekA_ioc06_fullContextSystemAndEvent：构建完整的上下文体系并添加容器事件
+- geekA_ioc06_fullContextSystemAndEvent：构建完整的ApplicationContext上下文体系并添加容器事件
 - geekB_mvc01_xmlMapping：基于原生Servlet和xml路由配置，实现一种最简单的请求响应，通过response.getWriter().append(objResult.toString());来返回请求结果
 - geekB_mvc02_AnnoatationRequestMapping：实现基于@RequestMapping注解的mvc
 - geekB_mvc03_Integratedioc：将springmvc与spring容器进行整合
