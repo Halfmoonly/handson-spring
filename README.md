@@ -45,6 +45,9 @@ Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_Sprin
 - geekC_jdbc02_expandTemplateAndSingleResponsibilitPrinciple：扩展了JdbcTemplate，根据单一职责，抽取出关于SQL输入参数处理的组件ArgumentPreparedStatementSetter，抽取出处理SQL返回结果与对象的绑定的组件RowMapper和ResultSetExtractor
 - geekC_jdbc03_PooledDataSource：实现了数据库（源）连接池PooledDataSource，并与IOC整合，替换SingleConnectionDataSource
 - geekC_jdbc04_realizeBatisSqlSession：仿写了mybatis框架，实现了配置化SQL语句
-
+- geekD_aop01_IntegratediocDynamicProxyByFactoryBean：原生的jdk动态代理还是会暴露代码，因为我们完成了零代码侵入的动态代理的框架封装
+- geekD_aop02_uncouplingByInterceptorAndInvocation：解耦Interceptor和Invocation，实现三种Interceptor（默认环绕，前置，后置）
+- geekD_aop03_realizePointcutToMatchmethods：实现配置化的切入点表达式，批量增强目标方法
+- geekD_aop04_AutoProxyCreatorToMatchclasss：添加配置化的AutoProxyCreator后置处理器，批量代理目标类
 
 ## mini_tomcat敬请期待....
