@@ -12,10 +12,8 @@
 	</bean>
 	<bean id="baseservice" class="com.test.service.BaseService" />
 	<bean id="userService" class="com.test.service.UserService" />
-	<bean id="autowiredAnnotationBeanPostProcessor" class="com.minis.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-	<bean id="logBeanPostProcessor" class="com.test.LogBeanPostProcessor" />
 
-	<!--@Async-->
+
 	<bean id="taskExecutor" class="com.minis.scheduling.concurrent.ThreadPoolTaskExecutor"  init-method="initializeExecutor">
 		<property type="int" name="corePoolSize" value="2" />
 		<property type="int" name="maxPoolSize" value="4" />
@@ -26,8 +24,20 @@
 		<property type="com.minis.scheduling.concurrent.ThreadPoolTaskExecutor" name="executor" ref="taskExecutor"/>
 	</bean>
 	<bean id="asyncAnnotationAdvisor" class="com.minis.scheduling.annotation.AsyncAnnotationAdvisor">
+		<property type="com.minis.aop.MethodInterceptor" name="methodInterceptor" ref="asyncExecutionInterceptor"/>
 	</bean>
-	<bean id="asyncAnnotationBeanPostProcessor" class="com.minis.scheduling.annotation.AsyncAnnotationBeanPostProcessor" />
+	<bean id="asyncAnnotationBeanPostProcessor" class="com.minis.scheduling.annotation.AsyncAnnotationBeanPostProcessor" >
+	</bean>
+
+
+
+	<bean id="autowiredAnnotationBeanPostProcessor" class="com.minis.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean id="logBeanPostProcessor" class="com.test.LogBeanPostProcessor" />
+	<bean id="autoProxyCreator" class="com.minis.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
+		<property type="String" name="pattern" value="action*" />
+		<property type="String" name="interceptorName" value="advisor" />
+	</bean>
+
 
 
 	<!-- 	<bean id="realaction" class="com.test.service.Action1" />
@@ -38,17 +48,13 @@
 
 	<bean id="action" class="com.test.service.Action1" />
 	<bean id="action2" class="com.test.service.Action2" />
-	<bean id="action3" class="com.test.service.Action3" />
-	<bean id="action4" class="com.test.service.Action4" />
+	<bean id="executorTest" class="com.test.service.ExecutorTest" />
+<!--	<bean id="asyncService" class="com.test.service.AsyncService" />-->
 
 	<bena id="beforeAdvice" class="com.test.service.MyBeforeAdvice" />
 	<bean id="advisor" class="com.minis.aop.NameMatchMethodPointcutAdvisor">
 		<property type="com.minis.aop.Advice" name="advice" ref="beforeAdvice"/>
 		<property type="String" name="mappedName" value="do*"/>
-	</bean>
-	<bean id="autoProxyCreator" class="com.minis.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
-		<property type="String" name="pattern" value="action*" />
-		<property type="String" name="interceptorName" value="advisor" />
 	</bean>
 
 

@@ -6,6 +6,7 @@ import com.minis.web.bind.annotation.ResponseBody;
 import com.minis.web.servlet.ModelAndView;
 import com.test.entity.User;
 import com.test.service.BaseService;
+import com.test.service.ExecutorTest;
 import com.test.service.IAction;
 import com.test.service.UserService;
 
@@ -126,10 +127,10 @@ System.out.println("testaop, call " + action.getClass());
 	}
 
 	@Autowired
-	IAction action3;
-	@RequestMapping("/testaopandthreadpool")
-	public void dotestaopandthreadpool(HttpServletRequest request, HttpServletResponse response) {
-		action3.doAction();
+	ExecutorTest executorTest;
+	@RequestMapping("/testexecutor")
+	public void dotestexecutor(HttpServletRequest request, HttpServletResponse response) {
+		executorTest.sayHello();
 
 		String str = "test aop 4, hello world!";
 		try {

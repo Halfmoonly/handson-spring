@@ -21,7 +21,7 @@
 		<property type="int" name="queueCapacity" value="2" />
 		<property type="int" name="keepAliveSeconds" value="60" />
 	</bean>
-	<bean id="action3" class="com.test.service.Action3" />
+	<bean id="action3" class="com.test.service.ExecutorTest" />
 
 
 

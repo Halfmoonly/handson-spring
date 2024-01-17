@@ -39,7 +39,7 @@
 	
 	<bean id="action" class="com.test.service.Action1" /> 
 	<bean id="action2" class="com.test.service.Action2" /> 
-	<bean id="action3" class="com.test.service.Action3" />
+	<bean id="executorTest" class="com.test.service.ExecutorTest" />
 
 	<bena id="beforeAdvice" class="com.test.service.MyBeforeAdvice" />
 	<bean id="advisor" class="com.minis.aop.NameMatchMethodPointcutAdvisor">

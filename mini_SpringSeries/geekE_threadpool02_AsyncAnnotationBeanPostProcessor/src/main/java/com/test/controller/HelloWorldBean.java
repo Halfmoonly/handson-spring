@@ -1,14 +1,16 @@
 package com.test.controller;
 
 import com.minis.beans.factory.annotation.Autowired;
+import com.minis.scheduling.annotation.Async;
+import com.minis.scheduling.annotation.AsyncResult;
+import com.minis.util.concurrent.FailureCallback;
+import com.minis.util.concurrent.ListenableFuture;
+import com.minis.util.concurrent.SuccessCallback;
 import com.minis.web.bind.annotation.RequestMapping;
 import com.minis.web.bind.annotation.ResponseBody;
 import com.minis.web.servlet.ModelAndView;
 import com.test.entity.User;
-import com.test.service.Action4;
-import com.test.service.BaseService;
-import com.test.service.IAction;
-import com.test.service.UserService;
+import com.test.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -127,10 +129,10 @@ System.out.println("testaop, call " + action.getClass());
 	}
 
 	@Autowired
-	IAction action3;
-	@RequestMapping("/testaopandthreadpool")
-	public void dotestaopandthreadpool(HttpServletRequest request, HttpServletResponse response) {
-		action3.doAction();
+	ExecutorTest executorTest;
+	@RequestMapping("/testexecutor")
+	public void dotestexecutor(HttpServletRequest request, HttpServletResponse response) {
+		executorTest.sayHello();
 
 		String str = "test aop 4, hello world!";
 		try {
@@ -140,11 +142,11 @@ System.out.println("testaop, call " + action.getClass());
 			e.printStackTrace();
 		}
 	}
-	@Autowired
-    Action4 action4Async;
+
+
 	@RequestMapping("/testasync1")
 	public void dotestasync1(HttpServletRequest request, HttpServletResponse response) {
-		action4Async.sayHello(data->{System.out.println("sucess "+data);},
+		sayHello(data->{System.out.println("sucess "+data);},
 				ex->System.out.println("failure "+ex));
 
 		String str = "test aop 4, hello world!";
@@ -158,7 +160,7 @@ System.out.println("testaop, call " + action.getClass());
 
 	@RequestMapping("/testasync2")
 	public void dotestasync2(HttpServletRequest request, HttpServletResponse response) {
-		action4Async.sayHello().addCallback(data->{System.out.println("sucess "+data);},
+		sayHello().addCallback(data->{System.out.println("sucess "+data);},
 				ex->System.out.println("failure "+ex));
 
 		String str = "test aop 4, hello world!";
@@ -168,5 +170,27 @@ System.out.println("testaop, call " + action.getClass());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+
+
+
+	@Async
+	public Boolean sayHello(SuccessCallback<? super Boolean> successCallback, FailureCallback failureCallback){
+		System.out.println("Base Service says hello.Execute method asynchronously. "
+				+ Thread.currentThread().getName());
+		ListenableFuture<Boolean> result = new AsyncResult<>(true);
+		result.addCallback(successCallback,	failureCallback);
+
+		return true;
+	}
+
+	@Async
+	public ListenableFuture<Boolean> sayHello(){
+		System.out.println("Base Service says hello.Execute method asynchronously. "
+				+ Thread.currentThread().getName());
+		ListenableFuture<Boolean> result = new AsyncResult<>(true);
+
+		return result;
 	}
 }

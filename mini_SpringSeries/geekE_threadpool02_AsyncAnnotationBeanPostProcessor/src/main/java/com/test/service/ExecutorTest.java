@@ -7,11 +7,11 @@ import com.minis.scheduling.concurrent.ThreadPoolTaskExecutor;
  * @Author: ly
  * @Date: 2024/1/16 20:06
  */
-public class Action3 implements IAction{
+public class ExecutorTest implements ThreadPoolService{
     @Autowired
     ThreadPoolTaskExecutor taskExecutor;
-    @Override
-    public void doAction() {
+
+    public void sayHello() {
         taskExecutor.submitListenable(()->{
             try {
                 Thread.sleep(2000);
@@ -25,8 +25,5 @@ public class Action3 implements IAction{
                 ex->System.out.println("sucess "+ex));
     }
 
-    @Override
-    public void doSomething() {
 
-    }
 }
