@@ -22,7 +22,7 @@ public class ExecutorTest implements ThreadPoolService{
             }
             return 0;
         }).addCallback(data->{System.out.println("sucess "+data);},
-                ex->System.out.println("sucess "+ex));
+                ex->System.out.println("sucess "+ex));//回调函数onSuccess和onFailure都传递给了Spirng框架，由Spring框架去监听返回结果是否已经创建完成，并主动推送给应用程序（我们）
     }
 
 
