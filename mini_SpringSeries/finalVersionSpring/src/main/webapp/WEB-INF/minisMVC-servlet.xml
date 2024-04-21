@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configurations>
+    <component-scan base-package="org.lyflexi.frameworktest.controller"/>
+</configurations>
+<!--<beans>-->
+<!--    <bean id="/helloworld" class="org.lyflexi.frameworktest.controller.HelloWorldBean" value="doGet"/>-->
+<!--</beans>-->

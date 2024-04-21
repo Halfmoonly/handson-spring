@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+
+    <bean id="userService" class="org.lyflexi.frameworktest.service.UserService"/>
+
+    <!--	<bean id="reentryHandler" class="org.lyflexi.frameworktest.ReentryRejectedExecutionHandler" >-->
+    <!--	</bean>-->
+    <bean id="taskExecutor" class="org.lyflexi.framework.scheduling.concurrent.ThreadPoolTaskExecutor"
+          init-method="initializeExecutor">
+        <property type="int" name="corePoolSize" value="2"/>
+        <property type="int" name="maxPoolSize" value="4"/>
+        <property type="int" name="queueCapacity" value="2"/>
+        <property type="int" name="keepAliveSeconds" value="60"/>
+    </bean>
+
+    <bean id="asyncExecutionInterceptor" class="org.lyflexi.framework.aop.AsyncExecutionInterceptor">
+        <property type="org.lyflexi.framework.scheduling.concurrent.ThreadPoolTaskExecutor" name="executor"
+                  ref="taskExecutor"/>
+    </bean>
+    <bean id="asyncAnnotationAdvisor" class="org.lyflexi.framework.scheduling.annotation.AsyncAnnotationAdvisor">
+    </bean>
+
+    <!--      		<property type="java.util.concurrent.RejectedExecutionHandler" name="rejectedExecutionHandler" ref="reentryHandler" />-->
+
+    <bean id="autoProxyCreator" class="org.lyflexi.framework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property type="String" name="pattern" value="action*"/>
+        <property type="String" name="interceptorName" value="advisor"/>
+    </bean>
+    <bean id="asyncAnnotationBeanPostProcessor"
+          class="org.lyflexi.framework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>
+    <bean id="logBeanPostProcessor" class="org.lyflexi.frameworktest.LogBeanPostProcessor"/>
+    <bean id="autowiredAnnotationBeanPostProcessor"
+          class="org.lyflexi.framework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+
+    <!-- 	<bean id="realaction" class="org.lyflexi.frameworktest.service.Action1" />
+        <bean id="action" class="org.lyflexi.framework.aop.ProxyFactoryBean" >
+            <property type="java.lang.Object" name="target" ref="realaction"/>
+            <property type="String" name="interceptorName" value="myInterceptor"/>
+        </bean>  -->
+
+    <bean id="action" class="org.lyflexi.frameworktest.service.Action1"/>
+    <bean id="action2" class="org.lyflexi.frameworktest.service.Action2"/>
+
+    <bena id="beforeAdvice" class="org.lyflexi.frameworktest.service.MyBeforeAdvice"/>
+    <bean id="advisor" class="org.lyflexi.framework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property type="org.lyflexi.framework.aop.Advice" name="advice" ref="beforeAdvice"/>
+        <property type="String" name="mappedName" value="do*"/>
+    </bean>
+
+
+<!--        <bean id="action" class="org.lyflexi.framework.aop.ProxyFactoryBean">-->
+<!--            <property type="String" name="interceptorName" value="advisor" />-->
+<!--            <property type="java.lang.Object" name="target" ref="realaction"/>-->
+<!--        </bean>-->
+
+<!--sqlserver-->
+    <!-- 	<bean id="dataSource" class="org.lyflexi.framework.jdbc.datasource.SingleConnectionDataSource">-->
+    <!--	<property type="String" name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>-->
+    <!--	<property type="String" name="url" value="jdbc:sqlserver://localhost:1433;databasename=DEMO;"/>-->
+    <!--	<property type="String" name="username" value="sa"/>-->
+    <!--	<property type="String" name="password" value="Sql2016"/>-->
+    <!--    </bean>-->
+    <!--    <bean id="dataSource" class="org.lyflexi.framework.jdbc.pool.PooledDataSource">  -->
+    <!--                <property name="url" value="jdbc:sqlserver://localhost:1433;databasename=DEMO"/>  -->
+    <!--                <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>  -->
+    <!--                <property name="username" value="sa"/>  -->
+    <!--                <property name="password" value="Sql2016"/>  -->
+    <!--                <property type="int" name="initialSize" value="3"/>  -->
+    <!--    </bean>-->
+
+<!--mysql-->
+<!--    <bean id="dataSource" class="org.lyflexi.framework.jdbc.datasource.SingleConnectionDataSource">-->
+<!--        <property type="String" name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property type="String" name="url" value="jdbc:mysql://47.103.44.163:3306/db?useSSL=false"/>-->
+<!--        <property type="String" name="username" value="root"/>-->
+<!--        <property type="String" name="password" value="root"/>-->
+<!--    </bean>-->
+        <bean id="dataSource" class="org.lyflexi.framework.jdbc.pool.PooledDataSource">
+                    <property name="url" value="jdbc:mysql://47.103.44.163:3306/DEMO?useSSL=false"/>
+                    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                    <property name="username" value="root"/>
+                    <property name="password" value="root"/>
+                    <property type="int" name="initialSize" value="3"/>
+        </bean>
+    <bean id="jdbcTemplate" class="org.lyflexi.framework.jdbc.core.JdbcTemplate">
+        <property type="javax.sql.DataSource" name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <bean id="contextListener" class="org.lyflexi.frameworktest.MyListener"/>
+
+    <bean id="beanFactoryPostProcessor" class="org.lyflexi.frameworktest.MyBeanFactoryPostProcessor"/>
+
+
+    <bean id="handlerMapping" class="org.lyflexi.framework.web.method.annotation.RequestMappingHandlerMapping"/>
+
+    <bean id="handlerAdapter" class="org.lyflexi.framework.web.method.annotation.RequestMappingHandlerAdapter">
+        <property type="org.lyflexi.framework.http.converter.HttpMessageConverter" name="messageConverter"
+                  ref="messageConverter"/>
+        <property type="org.lyflexi.framework.web.bind.support.WebBindingInitializer" name="webBindingInitializer"
+                  ref="webBindingInitializer"/>
+    </bean>
+
+    <bean id="webBindingInitializer" class="org.lyflexi.frameworktest.DateInitializer"/>
+    <bean id="messageConverter" class="org.lyflexi.framework.http.converter.DefaultHttpMessageConverter">
+        <property type="org.lyflexi.framework.util.ObjectMapper" name="objectMapper" ref="objectMapper"/>
+    </bean>
+    <bean id="objectMapper" class="org.lyflexi.framework.util.DefaultObjectMapper">
+        <property type="String" name="dateFormat" value="yyyy/MM/dd"/>
+        <property type="String" name="decimalFormat" value="###.##"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.lyflexi.framework.web.servlet.view.InternalResourceViewResolver">
+        <property type="String" name="viewClassName" value="org.lyflexi.framework.web.servlet.view.JstlView"/>
+        <property type="String" name="prefix" value="/jsp/"/>
+        <property type="String" name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!--    <bean id="sqlSessionFactory" class="org.lyflexi.framework.batis.DefaultSqlSessionFactory" init-method="init">-->
+    <!--        <property type="String" name="mapperLocations" value="mapper"></property>-->
+    <!--    </bean>-->
+
+
+</beans>
