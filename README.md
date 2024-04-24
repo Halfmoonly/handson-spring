@@ -1,5 +1,10 @@
 # handson_miniFramework
 本项目采用多分支开发，从一个最简单的程序开始，一步步堆积演化，每写一小段代码，都是一个可运行的程度。我希望你能够抵达山顶，一览众山小
+开发环境：
+- javax.servlet-api
+- tomcat10-
+- Idea 2023.2
+- jdk8 or jdk17
 ## mini_SpringSeries
 一层层对照 Spring 框架的现有结构，让原理理解起来不再困难。
 1. 第一部分： IoC 容器 。IoC 容器是 Spring 核心中的核心，Spring 抽象出 Bean 这个概念，用一个容器管理所有的 Bean，并解决上层应用的业务对象之间的耦合问题。后面所有的特性都依赖于 Bean 的概念和这个容器。因此即使我们简单地说 Spring 框架就是一个 IoC 容器也未尝不可。这个部分我们会从一个极简容器开始，逐步扩展增强，最终实现一个完整的 IoC 容器，包含 Spring 框架对应的核心功能，实现 Bean 的管理。基于这个核心，逐步扩展到 MiniSpring 的其他特性。打好这个基础，后面的学习会事半功倍。
@@ -48,13 +53,7 @@
   - 新建AsyncAnnotationAdvisor持有AsyncExecutionInterceptor的单向引用
   - 扩展JdkDynamicAopProxy，使其支持PointcutAdvisor和AsyncAnnotationAdvisor两种Advisor
 
-开发环境：
-- javax.servlet-api
-- tomcat10-
-- Idea 2023.2
-- jdk8 or jdk17
-
-Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_SpringhasMvc没有对Tomcat 10做适配。
+备注：Tomcat 10是第一个不再使用javax.servlet和相关包的版本，mini_SpringhasMvc没有对Tomcat 10做适配。
 > 在Tomcat 10+中，Servlet API已经迁移到了Jakarta EE命名空间（jakarta.servlet）。这是因为Java EE已经转移到了Eclipse基金会，并更名为Jakarta EE。因此，Servlet API也需要进行相应的更改
 
 ## mini_tomcat敬请期待....
