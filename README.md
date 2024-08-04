@@ -29,7 +29,7 @@ Spring 是 Java 开发事实上的平台。深入理解 Spring 基础框架的�
 
 5. 第五部分：ThreadPool 。这一章我们在Spring层面复现了异步线程池，防止主线程被长业务请求所阻塞。不仅如此，我们还封装了ThreadPoolExecutor，扩展了Future接口支持添加回调函数，重写了FutureTask类用于执行回调函数
     
-在这一步一步的演化过程中，我们对 Spring 的模仿逐渐成型。我坚持一个原则，就是每一步都是可以运行的，都会有看得见的收获，一起见证Spring 的风采。 《诗经》有云：“有匪君子，如切如磋，如琢如磨”。任何一个技术领域都是这样，不断练习，反复琢磨，最后才能站在山顶！ 工程结构如下所示：
+在这一步一步的演化过程中，我们对 Spring 的模仿逐渐成型。我坚持一个原则，就是每一步都是可以运行的，都会有看得见的收获，一起见证Spring 的风采。 《诗经》有云：“有匪君子，如切如磋，如琢如磨”。任何一个技术领域都是这样，不断练习，反复琢磨，最后才能站在山顶！ git分支结构如下所示：
 
 - geekA_ioc01_nativeClassPathXmlApplicationContext：实现了一个简易的IOC容器ClassPathXmlApplicationContext，耦合了Resource，耦合了Reader，耦合了BeanFactory的功能
 - geekA_ioc02_expandBeanDefinition：扩展了BeanDefinition的定义信息，支持Setter注入，支持构造注入，维护单实例Bean，并且解耦了ClassPathXmlApplicationContext
