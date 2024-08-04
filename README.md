@@ -16,6 +16,9 @@ Spring 是 Java 开发事实上的平台。深入理解 Spring 基础框架的�
 - tomcat10-
 - Idea
 - jdk8
+  
+说明：Tomcat 10是第一个不再使用javax.servlet和相关包的版本，MiniSpringFramework没有对Tomcat 10做适配。
+> 在Tomcat 10+中，Servlet API已经迁移到了Jakarta EE命名空间（jakarta.servlet）。这是因为Java EE已经转移到了Eclipse基金会，并更名为Jakarta EE。因此，Servlet API也需要进行相应的更改
 
 ## 项目结构
 一层层对照 Spring 框架的现有结构，让原理理解起来不再困难。
@@ -64,8 +67,5 @@ Spring 是 Java 开发事实上的平台。深入理解 Spring 基础框架的�
   - 仿照AOP实现原理，AsyncExecutionInterceptor，用于封装异步线程的创建逻辑，不再像用户暴露
   - 新建AsyncAnnotationAdvisor持有AsyncExecutionInterceptor的单向引用
   - 扩展JdkDynamicAopProxy，使其支持PointcutAdvisor和AsyncAnnotationAdvisor两种Advisor
-
-备注：Tomcat 10是第一个不再使用javax.servlet和相关包的版本，MiniSpringFramework没有对Tomcat 10做适配。
-> 在Tomcat 10+中，Servlet API已经迁移到了Jakarta EE命名空间（jakarta.servlet）。这是因为Java EE已经转移到了Eclipse基金会，并更名为Jakarta EE。因此，Servlet API也需要进行相应的更改
 
 ## mini_tomcat敬请期待....
