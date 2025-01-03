@@ -1,5 +1,4 @@
-# MiniSpringFramework
-
+# handson-spring
 为什么要创建该项目？
 
 虽然 Spring 是开源的，但是面对如此庞大且复杂的源代码，总会让初学者显得束手无措。
